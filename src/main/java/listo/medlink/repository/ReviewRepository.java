@@ -1,0 +1,7 @@
+package listo.medlink.repository;
+
+import listo.medlink.model.Review;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ReviewRepository extends JpaRepository<Review, Long> {
+}
