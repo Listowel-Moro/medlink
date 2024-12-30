@@ -1,5 +1,6 @@
 package listo.medlink.service;
 
+import listo.medlink.dto.LoginRequestBody;
 import listo.medlink.dto.RegisterRequestBody;
 import listo.medlink.model.User;
 import org.springframework.stereotype.Service;
@@ -9,5 +10,5 @@ public interface AuthService {
 
     public User register(RegisterRequestBody registerBody);
 
-    public User login();
+    public String login(LoginRequestBody loginBody);
 }

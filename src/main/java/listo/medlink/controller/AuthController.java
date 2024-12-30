@@ -1,9 +1,14 @@
 package listo.medlink.controller;
 
+import jakarta.validation.Valid;
+import listo.medlink.dto.LoginRequestBody;
+import listo.medlink.dto.LoginResponse;
 import listo.medlink.dto.RegisterRequestBody;
+import listo.medlink.mapper.UserMapper;
 import listo.medlink.model.User;
 import listo.medlink.service.AuthService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,14 +26,14 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public User register(@RequestBody RegisterRequestBody requestBody) {
-        return authService.register(requestBody);
+    public RegisterRequestBody register(@Valid @RequestBody RegisterRequestBody requestBody) {
+        return UserMapper.convertToRequestBody(authService.register(requestBody));
     }
 
-//    @PostMapping("/login/patient")
-//    public Patient loginPatient(@RequestBody PatientDTO patientDTO) {
-//        return patientService.login(patientDTO);
-//    }
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> loginPatient(@RequestBody LoginRequestBody requestBody) {
+        return ResponseEntity.ok(new LoginResponse(requestBody.getEmail(), authService.login(requestBody)));
+    }
 //
 //    @PostMapping("/register/doctor")
 //    public Doctor registerDoctor(@RequestBody DoctorDTO doctorDTO) {
